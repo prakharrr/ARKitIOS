@@ -17,15 +17,18 @@ class ViewController: UIViewController {
         //start the cam here
         let captureSession = AVCaptureSession ()
         
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else{
-            return
-        }
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else{return}
         
        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else {return}
         
         captureSession.addInput(input)
         
         captureSession.startRunning()
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        view.layer.addSublayer(previewLayer)
+        previewLayer.frame = view.frame
+        
     }
 
     override func didReceiveMemoryWarning() {
